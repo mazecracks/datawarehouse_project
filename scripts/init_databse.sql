@@ -16,7 +16,18 @@ CREATE DATABASE datawarehouse;
 -- STEP 2- CONNECT TO THE NEW DATABASE 
 
 -- Step 3 — Create Your Schemas
-CREATE SCHEMA IF NOT EXISTS bronze;
-CREATE SCHEMA IF NOT EXISTS silver;
-CREATE SCHEMA IF NOT EXISTS gold;
+CREATE OR REPLACE FUNCTION create_schemas() 
+RETURNS void AS $$
+BEGIN
+    -- Create bronze schema
+    CREATE SCHEMA IF NOT EXISTS bronze;
 
+    -- Create silver schema
+    CREATE SCHEMA IF NOT EXISTS silver;
+
+    -- Create gold schema
+    CREATE SCHEMA IF NOT EXISTS gold;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT create_schemas();
